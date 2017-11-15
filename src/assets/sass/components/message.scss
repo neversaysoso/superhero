@@ -1,0 +1,192 @@
+div,
+input,
+button {
+  box-sizing: border-box;
+}
+.messagebox {
+  width: 100%;
+  background: #f6f8fc;
+  padding: 20px;
+  .message-item {
+    width: 100%;
+    position: relative;
+    padding: 0px 50px;
+    margin-bottom: 20px;
+    .headimg {
+      width: 40px;
+      height: 40px;
+      position: absolute;
+      left: 0px;
+      top: 0px;
+      border-radius: 50%;
+      display: block;
+    }
+    .mtext {
+      padding: 10px 15px;
+      border-radius: 10px;
+      display: inline-block;
+      position: relative;
+      text-align: left;
+      word-break: break-all;
+      line-height: 30px;
+      img {
+        margin-top: -12px;
+      }
+    }
+    &.default-item{
+      .headimg{
+        display: none;
+      }
+      .mtext{
+        padding: 10px 15px;
+        font-size: 14px;
+        border-radius: 10px;
+        width: 100%;
+        text-align: center;
+        color: #888;
+        line-height: 25px;
+      }
+    }
+    &.msg-item{
+      .headimg{
+        display: none;
+      }
+      .mtext{
+        padding: 10px 15px;
+        background: #fff;
+        font-size: 14px;
+        border-radius: 10px;
+        width: 100%;
+        text-align: center;
+        color: #888;
+        line-height: 25px;
+      }
+    }
+    &.people-item {
+      text-align: right;
+      padding-right: 60px;
+      padding-top: 5px;
+      .headimg {
+        right: 0px;
+        left: auto;
+      }
+      .mtext {
+        color: #fff;
+        background: #4a93ec;
+        &:before {
+          content: "";
+          background: url("../../images/peopleBubble.png") top right
+            no-repeat;
+          position: absolute;
+          width: 10px;
+          right: -10px;
+          height: 50px;
+          top: 0px;
+        }
+      }
+    }
+    &.doc-item {
+      padding-left: 60px;
+      padding-top: 5px;
+      .mtext {
+        background: #fff;
+        color: #666;
+        &:before {
+          content: "";
+          background: url("../../images/docBubble.png") 0px -15px no-repeat;
+          position: absolute;
+          width: 10px;
+          left: -10px;
+          height: 50px;
+          top: 0px;
+        }
+      }
+    }
+  }
+}
+.inputbox {
+  height: 60px;
+  width: 100%;
+  padding: 10px 80px 10px 45px;
+  border: #dfdfdf solid 1px;
+  position: relative;
+  .icon-add {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 25px;
+    color: #666666;
+  }
+  .icon-face {
+    position: absolute;
+    right: 90px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 25px;
+    color: #666666;
+  }
+  .messageinput {
+    height: 40px;
+    width: 100%;
+    background: #efefef;
+    box-shadow: none;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    line-height: 20px;
+    outline: none;
+    font-size: 14px;
+    padding-right: 40px;
+  }
+  .sendbtn {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    width: 60px;
+    height: 40px;
+    font-size: 14px;
+    background: #4a93ec;
+    &:active {
+      background: #2f73c5!important;
+    }
+  }
+}
+.facebox{
+  display: flex;
+  padding: 10px;
+  -webkit-flex-wrap: wrap;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  width: 100%;
+  .faceitem{
+    display: block;
+    margin: 5px;
+  }
+  .vux-emotion{
+    width: 24px;
+    height: 24px;
+  }
+}
+.funcbox{
+  height: 175px;
+  background: #FAFAFA;
+  padding: 15px;
+  width: 100%;
+  overflow: hidden;
+  .funcimg{
+    display: block;
+    margin: 0px auto;
+    width: 42px;
+    margin-bottom: 5px;
+  }
+  .funclist{
+    width: 25%;
+    text-align: center;
+    float: left;
+    height: 70px;
+    font-size: 10px;
+    color: #666;
+    margin-bottom: 10px;
+  }
+}
