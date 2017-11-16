@@ -1,1 +1,13 @@
 @import "icon";
+
+div,
+input,
+button {
+  box-sizing: border-box;
+}
+.weui-btn_primary{
+  background: #4a93ec!important;
+}
+.weui-btn_primary:not(.weui-btn_disabled):active{
+  background: #2f73c5!important;
+}

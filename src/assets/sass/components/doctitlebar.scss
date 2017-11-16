@@ -1,0 +1,74 @@
+.th-doctitlebar{
+  position: relative;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 120px;
+  background: #ffffff;
+  z-index: 1;
+  border-bottom: #DFDFDF solid 1px;
+  padding: 25px 20px 25px 110px;
+  .th-headimg{
+    position: absolute;
+    left: 20px;
+    top: 25px;
+    width: 70px;
+    height: 70px;
+    display: block;
+    border-radius: 50%;
+  }
+  .th-name{
+    font-size: 16px;
+    color: #333;
+    line-height: 20px;
+  }
+  .th-position{
+    font-size: 14px;
+    color: #888;
+    position: absolute;
+    left: 110px;
+    top: 46px;
+  }
+  .th-stars{
+    position: absolute;
+    left: 110px;
+    bottom: 20px;
+    .icon-star{
+      font-size: 20px;
+      margin-right: 3px;
+    }
+  }
+  .th-btn{
+    position: absolute;
+    right: 15px;
+    top: 25px;
+    padding: 0px 12px;
+  }
+  .th-open{
+    position: absolute;
+    right: 15px;
+    bottom: 24px;
+    font-size: 14px;
+    color: #888;
+    .isopen{
+      transform:rotate(180deg);
+      -ms-transform:rotate(180deg);
+      -moz-transform:rotate(180deg);
+      -webkit-transform:rotate(180deg);
+      -o-transform:rotate(180deg);
+      display: inline-block;
+      position: relative;
+      top: 1px;
+    }
+  }
+  .th-openbox{
+    height: 170px;
+    width: 100%;
+    position: absolute;
+    top: 120px;
+    left: 0px;
+    background: #ffffff;
+    border-bottom: #DFDFDF solid 1px;
+    padding: 15px;
+  }
+}
