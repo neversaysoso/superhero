@@ -9,10 +9,10 @@
         <x-button v-if="typeof bigBtn=='string'&&bigBtn!=''" class="pbtn" type="primary" @click.native="btnCall">{{bigBtn}}</x-button>
       </div>
     </scroller>
-    <div class="inputbox" v-if="showInput!=false">
+    <div ref="thMessageInput" class="inputbox" v-if="showInput!=false">
       <i class="icon-add" @click="openfunc"></i>
       <i class="icon-face" @click="openface"></i>
-      <input class="messageinput" id="th-message-input" v-model="inputmodel" type="text" @focus="onfocus" @blur="onblur" @change="onfocus"/>
+      <input class="messageinput" v-model="inputmodel" type="text" @focus="onfocus" @change="onfocus"/>
       <x-button class="sendbtn" type="primary" @click.native="changecount">发送</x-button>
     </div>
     <facebox v-show="faceShow" ref="facebox" :facelist="facelist" @itemClick="faceItemClick"></facebox>
@@ -128,14 +128,12 @@ export default {
       this.faceShow = false;
       this.funcShow = false;
       this.messageReset();
+      const input = this.$refs.thMessageInput;
       setTimeout(() => {
-        document.getElementById("th-message-input").scrollIntoView(true);
-        document
-          .getElementById("th-message-input")
-          .scrollIntoViewIfNeeded(true);
+        // input.UpdateLayout()
+        input.scrollIntoView(false);
       }, 400);
     },
-    onblur() {},
     messageReset(h) {
       let mh = h || this.defaultresize;
       this.bottomheight = `-${mh - 40}`;
@@ -174,14 +172,16 @@ export default {
     openface() {
       this.funcShow = false;
       if (this.faceShow) {
-        this.messageReset();
         this.faceShow = false;
+        this.messageReset();
       } else {
-        this.messageReset(275);
         this.faceShow = true;
-        this.$nextTick(() => {
-          this.$refs.facebox.$refs.faceScroll.reset({ top: 0 });
-        });
+        setTimeout(() => {
+          this.messageReset(275);
+          this.$nextTick(() => {
+            this.$refs.facebox.$refs.faceScroll.reset({ top: 0 });
+          });
+        }, 400);
       }
     },
     faceItemClick(i) {
@@ -190,11 +190,13 @@ export default {
     openfunc() {
       this.faceShow = false;
       if (this.funcShow) {
-        this.messageReset();
         this.funcShow = false;
+        this.messageReset();
       } else {
-        this.messageReset(275);
         this.funcShow = true;
+        setTimeout(() => {
+          this.messageReset(275);
+        }, 400);
       }
     }
   }
