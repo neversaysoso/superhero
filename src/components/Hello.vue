@@ -24,7 +24,11 @@
       @quickCall="quick"
       @bigBtnCall="btncall">
     </th-message>
-    <th-dialog :isShow.sync="showdialog" :show-from="dialogfrom" :closeOnClickshadow="false" @onHide="hidedialog">
+    <th-dialog 
+      :isShow.sync="showdialog" 
+      :showFrom="dialogfrom" 
+      :closeOnClickshadow="true" 
+      @onHide="hidedialog">
     </th-dialog>
   </div>
 </template>

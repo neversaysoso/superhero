@@ -37,7 +37,7 @@ We are SuperHero!
       @bigBtnCall="btncall">
     </th-message>
 
-## Props
+### Props
 
 #### topPadding: 顶部间距
 
@@ -61,7 +61,7 @@ We are SuperHero!
 
 默认true，传入false则输入框不显示
 
-## Events
+### Events
 
 #### sendOut
 
@@ -99,7 +99,7 @@ We are SuperHero!
       自定义内容
     </th-doctortitlebar>
 
-## Props
+### Props
 
 #### canopen: 是否显示展开收起按钮
 
@@ -129,8 +129,39 @@ We are SuperHero!
 
 按钮是否能点击，默认可以点击，传布尔值
 
-## Events
+### Events
 
 #### btnCall
 
 点击按钮时调用方法
+
+
+## 信息弹出组件 th-dialog
+
+>
+    <th-dialog 
+      :isShow.sync="showdialog" 
+      :showFrom="dialogfrom" 
+      :closeOnClickshadow="true" 
+      @onHide="hidedialog">
+    </th-dialog>
+
+### Props
+
+#### isShow
+
+控制是否显示 true/false
+
+#### showFrom
+
+控制出现方式 top/bottom
+
+#### closeOnClickshadow
+
+控制点击背景黑色是否关闭 默认false
+
+### Events
+
+#### onHide
+
+关闭时调用的方法
