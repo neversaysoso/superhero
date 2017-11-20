@@ -24,19 +24,24 @@
       @quickCall="quick"
       @bigBtnCall="btncall">
     </th-message>
+    <th-dialog :isShow.sync="showdialog" :show-from="dialogfrom" :closeOnClickshadow="false" @onHide="hidedialog">
+    </th-dialog>
   </div>
 </template>
 
 <script>
 import ThMessage from "./message";
 import ThDoctortitlebar from "./doctortitlebar";
+import ThDialog from "./dialog";
+
 import { messageData } from "@/assets/testdata.js";
 
 export default {
   name: "",
   components: {
     ThMessage,
-    ThDoctortitlebar
+    ThDoctortitlebar,
+    ThDialog
   },
   data() {
     return {
@@ -52,7 +57,9 @@ export default {
         btncanlick: true,
         btntype: "primary"
       },
-      count: 10
+      count: 10,
+      showdialog: false,
+      dialogfrom: "bottom"
     };
   },
   mounted() {
@@ -75,12 +82,7 @@ export default {
         text: "调起了自定义拍照组件"
       });
     },
-    quick() {
-      this.messageData.push({
-        type: 4,
-        text: "调起了自定义快捷回复组件调起了自定义快捷回复组件"
-      });
-    },
+
     btncall() {
       alert("前往评价了");
       this.doctorbar.btn = "已评价";
@@ -94,6 +96,12 @@ export default {
       this.bigbtn = "前往评价";
       this.showinput = false;
       this.doctorbar.btncanlick = false;
+    },
+    quick() {
+      this.showdialog = true;
+    },
+    hidedialog() {
+      this.showdialog = false;
     }
   }
 };

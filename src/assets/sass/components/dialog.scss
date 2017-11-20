@@ -1,0 +1,51 @@
+.th-dialog{
+  &.th-active{
+    .th-dialog-bk{
+      opacity:1;
+    }
+    .th-dialog-dialogbox{
+      opacity:1;
+      bottom: 0px;
+    }
+  }
+  &.th-fromtop{
+    &.th-active{
+      .th-dialog-dialogbox{
+        top: 0px;
+      }
+    }
+    .th-dialog-dialogbox{
+      top: -300px;
+      bottom: auto;
+    }
+  }
+  .th-dialog-bk{
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    left: 0px;
+    top: 0px;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 2;
+    transition: opacity .3s;
+    -moz-transition: opacity .3s;
+    -webkit-transition: opacity .3s;
+    -o-transition: opacity .3s;
+    opacity:0;
+  }
+  .th-dialog-dialogbox{
+    min-height: 350px;
+    background: #fff;
+    position: absolute;
+    top: auto;
+    bottom: -300px;
+    left: 0px;
+    width: 100%;
+    z-index: 3;
+    transition: opacity .3s,bottom .3s,top .3s;
+    -moz-transition: opacity .3s,bottom .3s,top .3s;
+    -webkit-transition: opacity .3s,bottom .3s,top .3s;
+    -o-transition: opacity .3s,bottom .3s,top .3s;
+    opacity:0;
+  }
+}
