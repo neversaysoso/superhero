@@ -1,6 +1,6 @@
 <template>
   <div class="th-doctitlebar" id="th-doctitlebar">
-    <img class="th-headimg" :src="doc" />
+    <img class="th-headimg" :src="headImg||doc" @click="headclick"/>
     <div>
       <div class="th-name">{{name}}</div>
       <div class="th-position">{{position}}</div>
@@ -41,7 +41,8 @@ export default {
     "btn",
     "canopen",
     "btnCanClick",
-    "btnType"
+    "btnType",
+    "headImg"
   ],
   data() {
     return {
@@ -55,6 +56,9 @@ export default {
   methods: {
     btnclick() {
       this.$emit("btnCall");
+    },
+    headclick() {
+      this.$emit("headClick");
     }
   }
 };

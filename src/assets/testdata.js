@@ -52,6 +52,10 @@ export const messageData = [{
 }, {
   type: 2,
   text: '你好，<img src="https://res.wx.qq.com/mpres/htmledition/images/icon/emotion/0.gif" align="middle">有什么事有什么事有什么事有什么事有什么事有什么事有什么事？'
+}, {
+  type: 1,
+  text: '<img src="https://rubikx-10001356.image.myqcloud.com/8d87c5fb-cd91-4ef0-af08-49e76d8c7811" />',
+  isimg: true
 }]
 export const facelist = [
   "微笑",

@@ -8,7 +8,9 @@
       :btn="doctorbar.btn"
       :btnType="doctorbar.btntype"
       :btnCanClick="doctorbar.btncanlick"
-      @btnCall="topbtncall">
+      :headImg="otherface"
+      @btnCall="topbtncall"
+      @headClick="headclick">
       自定义内容
       <div v-for="i in count">{{i}}</div>
     </th-doctortitlebar>
@@ -18,11 +20,15 @@
       :funcList="funclist" 
       :bigBtn="bigbtn"
       :showInput="showinput"
+      :selfFace="selfface" 
+      :otherFace="otherface" 
       @sendOut="senRequest"
       @galleryCall="gallery"
       @cameraCall="camera"
       @quickCall="quick"
-      @bigBtnCall="btncall">
+      @bigBtnCall="btncall"
+      @faceClick="faceclick"
+      @msgClick="msgclick">
     </th-message>
     <th-dialog 
       :isShow.sync="showdialog" 
@@ -39,6 +45,8 @@ import ThDoctortitlebar from "./doctortitlebar";
 import ThDialog from "./dialog";
 
 import { messageData } from "@/assets/testdata.js";
+import selfface from "@/assets/images/myface.jpg";
+import otherface from "@/assets/images/heface.jpg";
 
 export default {
   name: "",
@@ -63,7 +71,9 @@ export default {
       },
       count: 10,
       showdialog: false,
-      dialogfrom: "bottom"
+      dialogfrom: "bottom",
+      selfface: selfface,
+      otherface: otherface
     };
   },
   mounted() {
@@ -106,6 +116,15 @@ export default {
     },
     hidedialog() {
       this.showdialog = false;
+    },
+    faceclick(d) {
+      console.log(d);
+    },
+    msgclick(d) {
+      if (d.isimg) alert(d.text);
+    },
+    headclick() {
+      console.log("点击了头像");
     }
   }
 };

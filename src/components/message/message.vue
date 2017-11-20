@@ -2,9 +2,9 @@
   <div class="th-message" :style="{marginTop:`-${topPadding}px`}">
     <scroller class="messagebox" lock-x :height="bottomheight" ref="scrollerEvent">
       <div ref="scrollbox" :style="{paddingTop:`${topPadding}px`}">
-        <div class="message-item" :class="{'people-item':i.type==1,'doc-item':i.type==2,'msg-item':i.type==3,'default-item':i.type==4}" v-for="i in messageData">
-          <img class="headimg" :src="i.headImg||i.type==1?people:doc">
-          <div class="mtext" v-html="i.text"></div>
+        <div class="message-item" :class="{'people-item':i.type==1,'doc-item':i.type==2,'msg-item':i.type==3,'default-item':i.type==4,'isimg':i.isimg}" v-for="i in messageData">
+          <img class="headimg" :src="i.headImg||i.type==1?selfFace||people:otherFace||doc" @click="faceclick(i)">
+          <div class="mtext" v-html="i.text" @click="msgclick(i)"></div>
         </div>
         <x-button v-if="typeof bigBtn=='string'&&bigBtn!=''" class="pbtn" type="primary" @click.native="btnCall">{{bigBtn}}</x-button>
       </div>
@@ -36,7 +36,15 @@ import funcbox from "./funcbox.vue";
 
 export default {
   name: "ThMessage",
-  props: ["topPadding", "messageData", "funcList", "bigBtn", "showInput"],
+  props: [
+    "topPadding",
+    "messageData",
+    "funcList",
+    "bigBtn",
+    "showInput",
+    "selfFace",
+    "otherFace"
+  ],
   components: {
     Scroller,
     XButton,
@@ -120,7 +128,7 @@ export default {
       this.messageReset();
       setTimeout(() => {
         this.messageReset();
-      }, 100);
+      }, 300);
     });
   },
   methods: {
@@ -165,6 +173,12 @@ export default {
           this.$emit("sendOut", html);
         });
       }
+    },
+    faceclick(d) {
+      this.$emit("faceClick", d);
+    },
+    msgclick(d) {
+      this.$emit("msgClick", d);
     },
     btnCall() {
       this.$emit("bigBtnCall");

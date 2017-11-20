@@ -30,6 +30,8 @@ We are SuperHero!
       :funcList="funclist" 
       :bigBtn="bigbtn"
       :showInput="showinput"
+      :selfFace="selfface" 
+      :otherFace="otherface" 
       @sendOut="senRequest"
       @galleryCall="gallery"
       @cameraCall="camera"
@@ -47,7 +49,7 @@ We are SuperHero!
 
 * type: 4种形式 type=1 右侧泡泡 type=2 左侧泡泡 type=3 消息提示 type=4 系统消息 
 * text: html信息（支持html标签）
-* headImg: 头像图片，若不传则显示默认图片
+* isimg: 是否为图片信息 true/false，默认false
 
 #### funcList：功能列表
 
@@ -60,6 +62,14 @@ We are SuperHero!
 #### showInput: 是否显示聊天输入框
 
 默认true，传入false则输入框不显示
+
+#### selfFace
+
+发送方的头像，默认显示默认图
+
+#### otherFace
+
+接收方的头像，默认显示默认图
 
 ### Events
 
@@ -83,6 +93,13 @@ We are SuperHero!
 
 点击底部大按钮时调用方法，传bigBtn参数时生效，绑定按钮点击方法
 
+#### faceClick
+
+点击头像时触发事件
+
+#### msgClick
+
+点击信息时触发事件
 
 ## 人物信息组件 th-doctortitlebar
 
@@ -95,6 +112,7 @@ We are SuperHero!
       :btn="doctorbar.btn"
       :btnType="doctorbar.btntype"
       :btnCanClick="doctorbar.btncanlick"
+      :headImg="otherface"
       @btnCall="topbtncall">
       自定义内容
     </th-doctortitlebar>
@@ -128,6 +146,10 @@ We are SuperHero!
 #### btnCanClick: 按钮是否能点击
 
 按钮是否能点击，默认可以点击，传布尔值
+
+#### headImg
+
+头像图片，默认显示默认图
 
 ### Events
 

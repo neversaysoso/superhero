@@ -22,6 +22,14 @@
         border-radius: 50%;
         display: block;
       }
+      &.isimg{
+        .mtext{
+          img{
+            margin: 0px;
+            max-width: 100%;
+          }
+        }
+      }
       .mtext {
         padding: 10px 15px;
         border-radius: 10px;
