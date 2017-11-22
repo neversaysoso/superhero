@@ -1,6 +1,6 @@
 <template>
   <div class="th-message" :style="{marginTop:`-${topPadding}px`}">
-    <scroller class="messagebox" lock-x :height="bottomheight" ref="scrollerEvent">
+    <scroller class="messagebox" lock-x v-model="status" :height="bottomheight" :use-pulldown="usePulldown" ref="scrollerEvent" @click.native="hideBox" @on-pulldown-loading="pulldown">
       <div ref="scrollbox" :style="{paddingTop:`${topPadding}px`}">
         <div class="message-item" :class="{'people-item':i.type==1,'doc-item':i.type==2,'msg-item':i.type==3,'default-item':i.type==4,'isimg':i.isimg}" v-for="i in messageData">
           <img class="headimg" :src="i.headImg||i.type==1?selfFace||people:otherFace||doc" @click="faceclick(i)">
@@ -8,11 +8,17 @@
         </div>
         <x-button v-if="typeof bigBtn=='string'&&bigBtn!=''" class="pbtn" type="primary" @click.native="btnCall">{{bigBtn}}</x-button>
       </div>
+      <div v-if="usePulldown" slot="pulldown" class="th-pulldown" style="position: absolute; top:100px;" :style="{top:`${parseInt(topPadding||0)-60}px`}">
+        <span v-show="status.pulldownStatus === 'default'" v-html="`${pulldownConfig.default||'下拉刷新'}`"></span>
+        <span v-show="status.pulldownStatus === 'down'" v-html="`${pulldownConfig.down||'下拉刷新'}`"></span>
+        <span v-show="status.pulldownStatus === 'up'" v-html="`${pulldownConfig.up||'松开刷新'}`"></span>
+        <span v-show="status.pulldownStatus === 'loading'" v-html="`${pulldownConfig.loading||'加载中...'}`"></span>
+      </div>
     </scroller>
     <div ref="thMessageInput" class="inputbox" v-if="showInput!=false">
       <i class="icon-add" @click="openfunc"></i>
       <i class="icon-face" @click="openface"></i>
-      <input class="messageinput" v-model="inputmodel" type="text" @focus="onfocus" @change="onfocus"/>
+      <input class="messageinput" v-model="inputmodel" type="text" @focus="onfocus"/>
       <x-button class="sendbtn" type="primary" @click.native="changecount">发送</x-button>
     </div>
     <facebox v-show="faceShow" ref="facebox" :facelist="facelist" @itemClick="faceItemClick"></facebox>
@@ -43,7 +49,9 @@ export default {
     "bigBtn",
     "showInput",
     "selfFace",
-    "otherFace"
+    "otherFace",
+    "usePulldown",
+    "pulldownConfig"
   ],
   components: {
     Scroller,
@@ -54,9 +62,16 @@ export default {
   watch: {
     messageData: function() {
       this.$nextTick(() => {
-        this.messageReset(
-          this.faceShow || this.funcShow ? 275 : this.defaultresize
-        );
+        if (
+          this.status.pulldownStatus == "default" ||
+          this.status.pulldownStatus == "down"
+        ) {
+          this.messageReset(
+            this.faceShow || this.funcShow ? 275 : this.defaultresize
+          );
+        } else {
+          this.$refs.scrollerEvent.reset();
+        }
       });
     },
     showInput: function(e) {
@@ -81,6 +96,9 @@ export default {
       faceShow: false,
       facelist: facelist,
       funcShow: false,
+      status: {
+        pulldownStatus: "default"
+      },
       funclist: [
         {
           type: "gallery",
@@ -125,22 +143,44 @@ export default {
       return this.funcList.indexOf(e.type) != -1;
     });
     this.$nextTick(() => {
-      this.messageReset();
+      const imgs = document.querySelectorAll(".mtext>img");
+      if (imgs.length == 0) {
+        this.messageReset();
+      } else {
+        imgs.forEach(e => {
+          e.addEventListener(
+            "load",
+            () => {
+              this.messageReset();
+            },
+            false
+          );
+        });
+      }
       setTimeout(() => {
         this.messageReset();
-      }, 300);
+      }, 1000);
     });
   },
   methods: {
     onfocus() {
-      this.faceShow = false;
-      this.funcShow = false;
-      this.messageReset();
+      this.hideBox();
       const input = this.$refs.thMessageInput;
       setTimeout(() => {
         // input.UpdateLayout()
-        input.scrollIntoView(false);
-      }, 400);
+        const ua = navigator.userAgent,
+          iOS11 = /OS 11_0_1|OS 11_0_2|OS 11_0_3|OS 11_1/.test(ua),
+          micro = /MicroMessenger\/6.5.2/.test(ua),
+          safari = /Safari/.test(ua),
+          wxwork = /wxwork/.test(ua);
+        if (iOS11 && (micro || safari) && !wxwork) {
+          return;
+        }
+        input.scrollIntoView();
+        setTimeout(() => {
+          input.scrollIntoView();
+        }, 300);
+      }, 300);
     },
     messageReset(h) {
       let mh = h || this.defaultresize;
@@ -151,20 +191,9 @@ export default {
         });
       }
     },
-    replaceImg(word) {
-      return word.replace(/\[[\u4E00-\u9FA5]{1,3}\]/gi, word => {
-        let newWord = word.replace(/\[|\]/gi, "");
-        let index = this.facelist.indexOf(newWord);
-        return `<img src="https://res.wx.qq.com/mpres/htmledition/images/icon/emotion/${index}.gif" align="middle">`;
-      });
-    },
     changecount() {
       if (this.inputmodel.trim() != "") {
-        let html = this.replaceImg(this.inputmodel);
-        this.messageData.push({
-          type: 1,
-          text: html
-        });
+        let html = this.inputmodel;
         this.$nextTick(() => {
           this.messageReset(
             this.faceShow || this.funcShow ? 275 : this.defaultresize
@@ -195,7 +224,7 @@ export default {
           this.$nextTick(() => {
             this.$refs.facebox.$refs.faceScroll.reset({ top: 0 });
           });
-        }, 400);
+        }, 300);
       }
     },
     faceItemClick(i) {
@@ -210,8 +239,19 @@ export default {
         this.funcShow = true;
         setTimeout(() => {
           this.messageReset(275);
-        }, 400);
+        }, 300);
       }
+    },
+    hideBox() {
+      this.funcShow = false;
+      this.faceShow = false;
+      this.messageReset();
+    },
+    pulldown() {
+      this.$emit("pulldownCall");
+    },
+    resetpulldown() {
+      this.status.pulldownStatus = "default";
     }
   }
 };

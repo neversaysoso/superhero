@@ -15,20 +15,24 @@
       <div v-for="i in count">{{i}}</div>
     </th-doctortitlebar>
     <th-message 
+      ref="messgebox"
+      :usePulldown="true"
+      :pulldownConfig="pulldownconfig"
       :topPadding="120"
       :messageData="messageData" 
       :funcList="funclist" 
       :bigBtn="bigbtn"
       :showInput="showinput"
       :selfFace="selfface" 
-      :otherFace="otherface" 
+      :otherFace="otherface"
       @sendOut="senRequest"
       @galleryCall="gallery"
       @cameraCall="camera"
       @quickCall="quick"
       @bigBtnCall="btncall"
       @faceClick="faceclick"
-      @msgClick="msgclick">
+      @msgClick="msgclick"
+      @pulldownCall="pulldowncall">
     </th-message>
     <th-dialog 
       :isShow.sync="showdialog" 
@@ -44,7 +48,7 @@ import ThMessage from "./message";
 import ThDoctortitlebar from "./doctortitlebar";
 import ThDialog from "./dialog";
 
-import { messageData } from "@/assets/testdata.js";
+import { messageData, facelist } from "@/assets/testdata.js";
 import selfface from "@/assets/images/myface.jpg";
 import otherface from "@/assets/images/heface.jpg";
 
@@ -73,14 +77,32 @@ export default {
       showdialog: false,
       dialogfrom: "bottom",
       selfface: selfface,
-      otherface: otherface
+      otherface: otherface,
+      facelist: facelist,
+      pulldownconfig: {
+        default: "<div>下拉刷新</div>",
+        up: "<div style='color:red'>下拉刷新</div>",
+        down: "<div style='color:blue'>松手刷新</div>",
+        loading: "<span style='color:green'>加载中</span>"
+      }
     };
   },
   mounted() {
     console.log();
   },
   methods: {
+    replaceImg(word) {
+      return word.replace(/\[[\u4E00-\u9FA5]{1,3}\]/gi, word => {
+        let newWord = word.replace(/\[|\]/gi, "");
+        let index = this.facelist.indexOf(newWord);
+        return `<img src="https://res.wx.qq.com/mpres/htmledition/images/icon/emotion/${index}.gif" align="middle">`;
+      });
+    },
     senRequest(h) {
+      this.messageData.push({
+        type: 1,
+        text: this.replaceImg(h)
+      });
       console.log(h);
     },
     gallery() {
@@ -125,6 +147,16 @@ export default {
     },
     headclick() {
       console.log("点击了头像");
+    },
+    pulldowncall() {
+      console.log("pulldown");
+      this.messageData.unshift({
+        type: 1,
+        text: "新增"
+      });
+      setTimeout(() => {
+        this.$refs.messgebox.resetpulldown();
+      }, 2000);
     }
   }
 };

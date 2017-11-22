@@ -5,6 +5,10 @@ We are SuperHero!
 
 ## THOR-X 业务级组件库
 
+## DEMO
+
+http://ly.apcan.cn
+
 ### 使用
 
 1.安装组件库
@@ -25,18 +29,24 @@ We are SuperHero!
 
 >
     <th-message 
+      ref="messgebox"
+      :usePulldown="true"
+      :pulldownConfig="pulldownconfig"
       :topPadding="120"
       :messageData="messageData" 
       :funcList="funclist" 
       :bigBtn="bigbtn"
       :showInput="showinput"
       :selfFace="selfface" 
-      :otherFace="otherface" 
+      :otherFace="otherface"
       @sendOut="senRequest"
       @galleryCall="gallery"
       @cameraCall="camera"
       @quickCall="quick"
-      @bigBtnCall="btncall">
+      @bigBtnCall="btncall"
+      @faceClick="faceclick"
+      @msgClick="msgclick"
+      @pulldownCall="pulldowncall">
     </th-message>
 
 ### Props
@@ -71,7 +81,27 @@ We are SuperHero!
 
 接收方的头像，默认显示默认图
 
+#### usePulldown
+
+配置是否开启下拉刷新功能
+
+#### pulldownConfig
+
+下拉刷新配置。可配置4个参数：default/up/down/loading，例如：
+
+>
+    {
+        default: "下拉刷新",
+        up: "<div style='color:red'>下拉刷新</div>",
+        down: "<div style='color:blue'>下拉刷新</div>",
+        loading: "<span style='color:green'>加载中</span>"
+    }
+
 ### Events
+
+#### pulldownCall
+
+下拉刷新后调用的方法，发起请求更新数据，更新数据完毕调用resetpulldown方法（下面有说明）
 
 #### sendOut
 
@@ -101,6 +131,12 @@ We are SuperHero!
 
 点击信息时触发事件
 
+### Methods
+
+#### resetpulldown
+
+下拉刷新完成后重置状态
+
 ## 人物信息组件 th-doctortitlebar
 
 >
@@ -113,7 +149,8 @@ We are SuperHero!
       :btnType="doctorbar.btntype"
       :btnCanClick="doctorbar.btncanlick"
       :headImg="otherface"
-      @btnCall="topbtncall">
+      @btnCall="topbtncall"
+      @headClick="headclick">
       自定义内容
     </th-doctortitlebar>
 
@@ -156,6 +193,10 @@ We are SuperHero!
 #### btnCall
 
 点击按钮时调用方法
+
+#### headClick
+
+点击头像调用方法
 
 
 ## 信息弹出组件 th-dialog

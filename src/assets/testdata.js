@@ -56,6 +56,10 @@ export const messageData = [{
   type: 1,
   text: '<img src="https://rubikx-10001356.image.myqcloud.com/8d87c5fb-cd91-4ef0-af08-49e76d8c7811" />',
   isimg: true
+}, {
+  type: 2,
+  text: '<img src="https://rubikx-10001356.image.myqcloud.com/eecef803-82e2-422b-9cc4-e6161ef7e360">',
+  isimg: true
 }]
 export const facelist = [
   "微笑",
