@@ -199,7 +199,7 @@ http://ly.apcan.cn
 点击头像调用方法
 
 
-## 信息弹出组件 th-dialog
+## 弹出层 th-dialog
 
 >
     <th-dialog 
