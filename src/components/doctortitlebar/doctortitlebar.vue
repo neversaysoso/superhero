@@ -9,7 +9,7 @@
       </div>
       <x-button v-if="!!btn" class="th-btn" mini :type="btnType||'primary'" :disabled="!btnCanClick" @click.native="btnclick">{{btn}}</x-button>
       <div class="th-open" v-if="canopen==''" @click="open=!open">
-        {{`${open?'收起':'展开'}`}}
+        {{`${open?opentext.close:opentext.open}`}}
         <i class="icon-down" :class="{'isopen':open}"></i>
       </div>
     </div>
@@ -42,16 +42,23 @@ export default {
     "canopen",
     "btnCanClick",
     "btnType",
-    "headImg"
+    "headImg",
+    "openConfig"
   ],
   data() {
     return {
       doc: doc,
-      open: false
+      open: false,
+      opentext: {
+        open: "展开",
+        close: "收起"
+      }
     };
   },
   mounted() {
-    console.log();
+    if (typeof this.openConfig != "undefined") {
+      this.opentext = this.openConfig;
+    }
   },
   methods: {
     btnclick() {

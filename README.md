@@ -160,6 +160,17 @@ http://ly.apcan.cn
 
 是否显示展开收起按钮
 
+#### openConfig
+
+展开功能参数配置。可配置2个参数：open/close，例如：
+
+>
+    {
+        open: "打开",
+        close: "关闭"
+    }
+
+
 #### name: 姓名字段
 
 姓名字段

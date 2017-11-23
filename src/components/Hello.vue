@@ -2,6 +2,7 @@
   <div>
     <th-doctortitlebar
       canopen
+      :openConfig="openconfig"
       :name="doctorbar.name"
       :position="doctorbar.position"
       :star="doctorbar.star"
@@ -79,6 +80,10 @@ export default {
       selfface: selfface,
       otherface: otherface,
       facelist: facelist,
+      openconfig: {
+        open: "打开",
+        close: "关闭"
+      },
       pulldownconfig: {
         default: "<div>下拉刷新</div>",
         up: "<div style='color:red'>下拉刷新</div>",
@@ -118,7 +123,6 @@ export default {
         text: "调起了自定义拍照组件"
       });
     },
-
     btncall() {
       alert("前往评价了");
       this.doctorbar.btn = "已评价";

@@ -3,8 +3,8 @@
     <scroller class="messagebox" lock-x v-model="status" :height="bottomheight" :use-pulldown="usePulldown" ref="scrollerEvent" @click.native="hideBox" @on-pulldown-loading="pulldown">
       <div ref="scrollbox" :style="{paddingTop:`${topPadding}px`}">
         <div class="message-item" :class="{'people-item':i.type==1,'doc-item':i.type==2,'msg-item':i.type==3,'default-item':i.type==4,'isimg':i.isimg}" v-for="i in messageData">
-          <img class="headimg" :src="i.headImg||i.type==1?selfFace||people:otherFace||doc" @click="faceclick(i)">
-          <div class="mtext" v-html="i.text" @click="msgclick(i)"></div>
+          <img class="headimg" :src="i.headImg||i.type==1?selfFace||people:otherFace||doc" @click="e=>{faceclick(i,e)}">
+          <div class="mtext" v-html="i.text" @click="e=>{msgclick(i,e)}"></div>
         </div>
         <x-button v-if="typeof bigBtn=='string'&&bigBtn!=''" class="pbtn" type="primary" @click.native="btnCall">{{bigBtn}}</x-button>
       </div>
@@ -77,8 +77,9 @@ export default {
     showInput: function(e) {
       if (!e) {
         this.defaultresize = 40;
-        this.faceShow = false;
-        this.funcShow = false;
+        this.$nextTick(() => {
+          this.hideBox();
+        });
       }
     }
   },
@@ -203,10 +204,12 @@ export default {
         });
       }
     },
-    faceclick(d) {
+    faceclick(d, e) {
+      e.stopPropagation();
       this.$emit("faceClick", d);
     },
-    msgclick(d) {
+    msgclick(d, e) {
+      e.stopPropagation();
       this.$emit("msgClick", d);
     },
     btnCall() {
