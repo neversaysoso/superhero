@@ -11,6 +11,9 @@ function resolve(dir) {
   return path.join(__dirname, '..', dir)
 }
 
+const app = ''
+
+
 let webpackConfig = {
   entry: {
     app: './src/main.js'
