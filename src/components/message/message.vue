@@ -81,6 +81,11 @@ export default {
           this.hideBox();
         });
       }
+    },
+    funcList: function() {
+      this.funclist = this.funclist.filter(e => {
+        return this.funcList.indexOf(e.type) != -1;
+      });
     }
   },
   data() {

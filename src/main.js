@@ -1,9 +1,6 @@
 import Vue from 'vue'
-import FastClick from 'fastclick'
 import 'vux/src/styles/reset.less';
 import "@/assets/sass/style.scss"
-
-FastClick.attach(document.body)
 Vue.config.productionTip = false
 
 import ThMessage from './components/message'
