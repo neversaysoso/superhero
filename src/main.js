@@ -6,6 +6,8 @@ import "@/assets/sass/style.scss"
 FastClick.attach(document.body)
 Vue.config.productionTip = false
 
+//打包
+
 // import ThMessage from './components/message'
 // import ThDoctortitlebar from './components/doctortitlebar'
 // import ThDialog from './components/dialog'
@@ -30,6 +32,7 @@ Vue.config.productionTip = false
 //   install
 // }, components)
 
+//预览
 
 import VueRouter from 'vue-router'
 import App from './App'
