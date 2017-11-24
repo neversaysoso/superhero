@@ -27,6 +27,8 @@ http://ly.apcan.cn
 
 ## 聊天组件 th-message
 
+![聊天demo](src/assets/images/demo1.jpg)
+
 >
     <th-message 
       ref="messgebox"
