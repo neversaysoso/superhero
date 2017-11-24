@@ -50,15 +50,16 @@ export const messageData = [{
   type: 1,
   text: '在吗？医生'
 }, {
-  type: 2,
-  text: '你好，<img src="https://res.wx.qq.com/mpres/htmledition/images/icon/emotion/0.gif" align="middle">有什么事有什么事有什么事有什么事有什么事有什么事有什么事？'
-}, {
   type: 1,
-  text: '<img src="https://rubikx-10001356.image.myqcloud.com/8d87c5fb-cd91-4ef0-af08-49e76d8c7811" />',
+  text: '<img src="http://img0.imgtn.bdimg.com/it/u=92848021,3933526889&fm=11&gp=0.jpg" />',
   isimg: true
 }, {
   type: 2,
-  text: '<img src="https://rubikx-10001356.image.myqcloud.com/eecef803-82e2-422b-9cc4-e6161ef7e360">',
+  text: '<img src="http://img1.imgtn.bdimg.com/it/u=3044191397,2911599132&fm=27&gp=0.jpg">',
+  isimg: true
+}, {
+  type: 1,
+  text: '<img src="http://img4.imgtn.bdimg.com/it/u=3088474657,3195539965&fm=11&gp=0.jpg">',
   isimg: true
 }]
 export const facelist = [

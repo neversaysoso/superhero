@@ -31,9 +31,17 @@
       }
       &.isimg{
         .mtext{
+          background: none!important;
+          padding: 0px;
+          &:before{
+            display: none;
+          }
           img{
             margin: 0px;
-            max-width: 100%;
+            display: block;
+            border-radius: 8px;
+            max-width: 150px;
+            max-height: 150px;
           }
         }
       }

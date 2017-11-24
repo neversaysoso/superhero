@@ -141,6 +141,10 @@ http://ly.apcan.cn
 
 下拉刷新完成后重置状态
 
+#### messageReset
+
+手动刷新聊天容器（传输图片时使用）
+
 ## 人物信息组件 th-doctortitlebar
 
 >
