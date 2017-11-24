@@ -9,6 +9,8 @@ We are SuperHero!
 
 http://ly.apcan.cn
 
+![二维码](src/assets/images/code.png)
+
 ### 使用
 
 1.安装组件库
