@@ -66,9 +66,7 @@ export default {
           this.status.pulldownStatus == "default" ||
           this.status.pulldownStatus == "down"
         ) {
-          this.messageReset(
-            this.faceShow || this.funcShow ? 275 : this.defaultresize
-          );
+          this.messageReset();
         } else {
           this.$refs.scrollerEvent.reset();
         }
@@ -188,8 +186,8 @@ export default {
         }, 300);
       }, 300);
     },
-    messageReset(h) {
-      let mh = h || this.defaultresize;
+    messageReset() {
+      let mh = this.faceShow || this.funcShow ? 275 : this.defaultresize;
       this.bottomheight = `-${mh - 40}`;
       if (this.$refs.scrollbox.clientHeight > this.screamHeight - mh) {
         this.$refs.scrollerEvent.reset({
@@ -201,9 +199,7 @@ export default {
       if (this.inputmodel.trim() != "") {
         let html = this.inputmodel;
         this.$nextTick(() => {
-          this.messageReset(
-            this.faceShow || this.funcShow ? 275 : this.defaultresize
-          );
+          this.messageReset();
           this.inputmodel = "";
           this.$emit("sendOut", html);
         });
@@ -228,7 +224,7 @@ export default {
       } else {
         this.faceShow = true;
         setTimeout(() => {
-          this.messageReset(275);
+          this.messageReset();
           this.$nextTick(() => {
             this.$refs.facebox.$refs.faceScroll.reset({ top: 0 });
           });
@@ -246,7 +242,7 @@ export default {
       } else {
         this.funcShow = true;
         setTimeout(() => {
-          this.messageReset(275);
+          this.messageReset();
         }, 300);
       }
     },

@@ -94,6 +94,10 @@ export default {
   },
   mounted() {
     console.log();
+    setTimeout(() => {
+      this.$refs.messgebox.messageReset();
+      console.log(111);
+    }, 5000);
   },
   methods: {
     replaceImg(word) {
