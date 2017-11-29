@@ -146,6 +146,15 @@ export default {
     this.funclist = this.funclist.filter(e => {
       return this.funcList.indexOf(e.type) != -1;
     });
+    window.onresize = () => {
+      let h2 =
+        window.innerHeight ||
+        document.documentElement.clientHeight ||
+        document.body.clientHeight;
+      this.screamHeight = h2;
+      this.$refs.scrollerEvent.getStyles();
+      this.messageReset();
+    };
     this.$nextTick(() => {
       const imgs = document.querySelectorAll(".mtext>img");
       if (imgs.length == 0) {

@@ -92,11 +92,12 @@ export default {
       }
     };
   },
+  beforeCreate() {
+    console.log(888888);
+  },
   mounted() {
-    console.log();
     setTimeout(() => {
       this.$refs.messgebox.messageReset();
-      console.log(111);
     }, 5000);
   },
   methods: {
