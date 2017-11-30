@@ -92,9 +92,6 @@ export default {
       }
     };
   },
-  beforeCreate() {
-    console.log(888888);
-  },
   mounted() {
     setTimeout(() => {
       this.$refs.messgebox.messageReset();

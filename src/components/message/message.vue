@@ -1,6 +1,6 @@
 <template>
   <div class="th-message" :style="{marginTop:`-${topPadding}px`}">
-    <scroller class="messagebox" lock-x v-model="status" :height="bottomheight" :use-pulldown="usePulldown" ref="scrollerEvent" @click.native="hideBox" @on-pulldown-loading="pulldown">
+    <scroller class="messagebox" lock-x v-model="status" :height="bottomheight" :use-pulldown="usePulldown" ref="scrollerEvent" @click.native="hideBox" @on-pulldown-loading="pulldown" @on-scroll="onscroll">
       <div ref="scrollbox" :style="{paddingTop:`${topPadding}px`}">
         <div class="message-item" :class="{'people-item':i.type==1,'doc-item':i.type==2,'msg-item':i.type==3,'default-item':i.type==4,'isimg':i.isimg}" v-for="i in messageData">
           <img class="headimg" :src="i.headImg||i.type==1?selfFace||people:otherFace||doc" @click="e=>{faceclick(i,e)}">
@@ -18,8 +18,8 @@
     <div ref="thMessageInput" class="inputbox" v-if="showInput!=false">
       <i class="icon-add" @click="openfunc"></i>
       <i class="icon-face" @click="openface"></i>
-      <input class="messageinput" v-model="inputmodel" type="text" @focus="onfocus"/>
-      <x-button class="sendbtn" type="primary" @click.native="changecount">发送</x-button>
+      <input ref="thMessageInputF" class="messageinput" v-model="inputmodel" type="text" @focus="onfocus" @blur="onblur"/>
+      <x-button class="sendbtn" :type="inputmodel.trim()==''?'default':'primary'" :disabled="inputmodel.trim()==''" @click.native="changecount">发送</x-button>
     </div>
     <facebox v-show="faceShow" ref="facebox" :facelist="facelist" @itemClick="faceItemClick"></facebox>
     <funcbox v-show="funcShow" :funclist="funclist"></funcbox>
@@ -100,6 +100,7 @@ export default {
       faceShow: false,
       facelist: facelist,
       funcShow: false,
+      isFocus: false,
       status: {
         pulldownStatus: "default"
       },
@@ -192,8 +193,18 @@ export default {
         input.scrollIntoView();
         setTimeout(() => {
           input.scrollIntoView();
+          this.isFocus = true;
         }, 300);
       }, 300);
+    },
+    onblur() {
+      this.isFocus = false;
+    },
+    onscroll() {
+      if (this.isFocus) {
+        this.$refs.thMessageInputF.blur();
+        this.hideBox();
+      }
     },
     messageReset() {
       let mh = this.faceShow || this.funcShow ? 275 : this.defaultresize;
