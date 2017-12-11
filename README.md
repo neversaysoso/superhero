@@ -31,24 +31,24 @@ Vue.use(thor)
 
 ```html
 <th-message 
-    ref="messgebox"
-    :usePulldown="true"
-    :pulldownConfig="pulldownconfig"
-    :topPadding="120"
-    :messageData="messageData" 
-    :funcList="funclist" 
-    :bigBtn="bigbtn"
-    :showInput="showinput"
-    :selfFace="selfface" 
-    :otherFace="otherface"
-    @sendOut="senRequest"
-    @galleryCall="gallery"
-    @cameraCall="camera"
-    @quickCall="quick"
-    @bigBtnCall="btncall"
-    @faceClick="faceclick"
-    @msgClick="msgclick"
-    @pulldownCall="pulldowncall">
+  ref="messgebox"
+  :usePulldown="true"
+  :pulldownConfig="pulldownconfig"
+  :topPadding="120"
+  :messageData="messageData" 
+  :funcList="funclist" 
+  :bigBtn="bigbtn"
+  :showInput="showinput"
+  :selfFace="selfface" 
+  :otherFace="otherface"
+  @sendOut="senRequest"
+  @galleryCall="gallery"
+  @cameraCall="camera"
+  @quickCall="quick"
+  @bigBtnCall="btncall"
+  @faceClick="faceclick"
+  @msgClick="msgclick"
+  @pulldownCall="pulldowncall">
 </th-message>
 ```
 
@@ -92,17 +92,17 @@ Vue.use(thor)
 
 ```html
 <th-doctortitlebar
-    canopen
-    :name="doctorbar.name"
-    :position="doctorbar.position"
-    :star="doctorbar.star"
-    :btn="doctorbar.btn"
-    :btnType="doctorbar.btntype"
-    :btnCanClick="doctorbar.btncanlick"
-    :headImg="otherface"
-    @btnCall="topbtncall"
-    @headClick="headclick">
-    自定义内容
+  canopen
+  :name="doctorbar.name"
+  :position="doctorbar.position"
+  :star="doctorbar.star"
+  :btn="doctorbar.btn"
+  :btnType="doctorbar.btntype"
+  :btnCanClick="doctorbar.btncanlick"
+  :headImg="otherface"
+  @btnCall="topbtncall"
+  @headClick="headclick">
+  自定义内容
 </th-doctortitlebar>
 ```
 ### API
@@ -132,10 +132,10 @@ Vue.use(thor)
 
 ```html         
 <th-dialog 
-    :isShow.sync="showdialog" 
-    :showFrom="dialogfrom" 
-    :closeOnClickshadow="true" 
-    @onHide="hidedialog">
+  :isShow.sync="showdialog" 
+  :showFrom="dialogfrom" 
+  :closeOnClickshadow="true" 
+  @onHide="hidedialog">
 </th-dialog>
 ```
 ### API
