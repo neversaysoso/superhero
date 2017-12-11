@@ -9,8 +9,6 @@ We are SuperHero!
 
 http://ly.apcan.cn
 
-![二维码](src/assets/images/code.png)
-
 ### 使用
 
 1.安装组件库
@@ -30,8 +28,6 @@ Vue.use(thor)
 注：也可以不在main.js里引入，在具体页面按需引入相关组件
 
 ## 聊天组件 th-message
-
-![聊天demo](src/assets/images/demo1.jpg)
 
 ```html
 <th-message 
