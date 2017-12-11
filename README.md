@@ -74,7 +74,7 @@ Vue.use(thor)
 
 #### Events
 
-|Events|Required|Default Value|Description|
+|Event|Required|Default Value|Description|
 |:-|:-|:-|:-|
 |`pulldownCall`|`false`|`function`|下拉刷新后调用的方法，发起请求更新数据，更新数据完毕调用resetpulldown方法|
 |`sendOut`|`false`||点击发送时调用方法|
@@ -87,7 +87,7 @@ Vue.use(thor)
 
 #### Methods
 
-|Methods|Required|Description|
+|Method|Required|Description|
 |:-|:-|:-|
 |`resetpulldown`|`false`|下拉刷新完成后重置状态|
 |`messageReset`|`false`|手动刷新聊天容器（传输图片时使用）|
@@ -109,6 +109,7 @@ Vue.use(thor)
     自定义内容
 </th-doctortitlebar>
 ```
+### API
 
 #### Props
 
@@ -126,7 +127,7 @@ Vue.use(thor)
 
 #### Events
 
-|Events|Required|Default Value|Description|
+|Event|Required|Default Value|Description|
 |:-|:-|:-|:-|
 |`btnCall`|`false`|`function`|点击按钮时调用方法|
 |`headClick`|`false`||点击头像调用方法|
@@ -141,6 +142,7 @@ Vue.use(thor)
     @onHide="hidedialog">
 </th-dialog>
 ```
+### API
 
 #### Props
 
@@ -152,6 +154,6 @@ Vue.use(thor)
 
 ### Events
 
-|Prop|Required|Default Value|Description|
+|Event|Required|Default Value|Description|
 |:-|:-|:-|:-|
 |`onHide`|`false`|`function`|关闭时调用的方法|
