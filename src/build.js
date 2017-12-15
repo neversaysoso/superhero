@@ -23,6 +23,8 @@ if (typeof window !== 'undefined' && window.Vue) {
   install(window.Vue)
 }
 
-export default Object.assign({
+module.exports = Object.assign({
   install
 }, components)
+
+module.exports.default = module.exports;
