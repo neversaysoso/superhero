@@ -6,11 +6,13 @@ Vue.config.productionTip = false
 import ThMessage from './components/message'
 import ThDoctortitlebar from './components/doctortitlebar'
 import ThDialog from './components/dialog'
+import ThMarquee from './components/marquee'
 
 const components = {
   ThMessage,
   ThDoctortitlebar,
-  ThDialog
+  ThDialog,
+  ThMarquee
 }
 
 const install = function (Vue) {

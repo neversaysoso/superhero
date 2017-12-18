@@ -153,3 +153,24 @@ Vue.use(thor)
 |Event|Required|Default Value|Description|
 |:-|:-|:-|:-|
 |`onHide`|`false`|`function`|关闭时调用的方法|
+
+## 文本滚动 th-marquee
+
+```html         
+<div style="width: 100px;">
+  <th-marquee 
+    content="333333333"
+    speed="middle">
+  </th-marquee>
+</div>
+```
+### API
+
+#### Props
+
+|Prop|Required|Default Value|Description|
+|:-|:-|:-|:-|
+|`content`|`false`|`暂无内容`|显示内容|
+|`speed`|`false`|`middle`|控制滚动速度:`quick`/`middle`/`slow`|
+
+说明：需要一个外部容器限制宽度，才能实现滚动效果。当宽度大于实际内容，不滚动。
