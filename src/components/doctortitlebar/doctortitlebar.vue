@@ -2,10 +2,15 @@
   <div class="th-doctitlebar" id="th-doctitlebar">
     <img class="th-headimg" :src="headImg||doc" @click="headclick"/>
     <div>
-      <div class="th-name">{{name}}</div>
-      <div class="th-position">{{position}}</div>
-      <div class="th-stars">
-        <i v-for="i in star" class="icon-star"></i>
+      <div class="flexbox" :class="{nostar:!star}">
+        <div class="th-name">{{name}} <span v-if="clock" class="th-position">{{position}}</span></div>
+        <div v-if="!clock" class="th-position">{{position}}</div>
+        <div v-if="star" class="th-stars">
+          <i v-for="i in star" class="icon-star"></i>
+        </div>
+        <div v-if="clock" class="th-clock">
+          <i class="icon-clock"></i>  <span v-html="clock"></span>
+        </div>
       </div>
       <x-button v-if="!!btn" class="th-btn" mini :type="btnType||'primary'" :disabled="!btnCanClick" @click.native="btnclick">{{btn}}</x-button>
       <div class="th-open" v-if="canopen==''" @click="open=!open">
@@ -43,7 +48,8 @@ export default {
     "btnCanClick",
     "btnType",
     "headImg",
-    "openConfig"
+    "openConfig",
+    "clock"
   ],
   data() {
     return {

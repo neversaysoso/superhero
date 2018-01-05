@@ -100,6 +100,7 @@ Vue.use(thor)
   :btnType="doctorbar.btntype"
   :btnCanClick="doctorbar.btncanlick"
   :headImg="otherface"
+  :clock="`48小时后截止`"
   @btnCall="topbtncall"
   @headClick="headclick">
   自定义内容
@@ -120,6 +121,7 @@ Vue.use(thor)
 |`btnType`|`false`|`string`|按钮类型，可选值为 default,primary,warn|
 |`btnCanClick`|`false`|`true`|按钮是否能点击，默认可以点击|
 |`headImg`|`false`|`url`|头像图片，默认显示默认图|
+|`clock`|`false`||时钟字段，内容自定义|
 
 #### Events
 

@@ -1,4 +1,4 @@
-.th-doctitlebar{
+.th-doctitlebar {
   position: relative;
   top: 0px;
   left: 0px;
@@ -8,7 +8,7 @@
   z-index: 1;
   border-bottom: #DFDFDF solid 1px;
   padding: 25px 20px 25px 110px;
-  .th-headimg{
+  .th-headimg {
     position: absolute;
     left: 20px;
     top: 25px;
@@ -17,51 +17,74 @@
     display: block;
     border-radius: 50%;
   }
-  .th-name{
+  .flexbox {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 70px;
+    &.nostar {
+      height: 50px;
+      position: relative;
+      top: 10px;
+    }
+  }
+  .th-name {
     font-size: 16px;
     color: #333;
     line-height: 20px;
+    width: 66%;
+    overflow: hidden;
+    height: 20px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
   }
-  .th-position{
+  .th-position {
     font-size: 14px;
     color: #888;
-    position: absolute;
-    left: 110px;
-    top: 46px;
+    height: 20px;
+    line-height: 20px;
   }
-  .th-stars{
-    position: absolute;
-    left: 110px;
-    bottom: 20px;
-    .icon-star{
+  .th-clock {
+    font-size: 12px;
+    color: #999;
+    height: 20px;
+    line-height: 20px;
+    .icon-clock {
+      position: relative;
+      top: 1px;
+    }
+  }
+  .th-stars {
+    height: 20px;
+    .icon-star {
       font-size: 20px;
       margin-right: 3px;
     }
   }
-  .th-btn{
+  .th-btn {
     position: absolute;
     right: 15px;
     top: 25px;
     padding: 0px 12px;
   }
-  .th-open{
+  .th-open {
     position: absolute;
     right: 15px;
     bottom: 24px;
     font-size: 14px;
     color: #888;
-    .isopen{
-      transform:rotate(180deg);
-      -ms-transform:rotate(180deg);
-      -moz-transform:rotate(180deg);
-      -webkit-transform:rotate(180deg);
-      -o-transform:rotate(180deg);
+    .isopen {
+      transform: rotate(180deg);
+      -ms-transform: rotate(180deg);
+      -moz-transform: rotate(180deg);
+      -webkit-transform: rotate(180deg);
+      -o-transform: rotate(180deg);
       display: inline-block;
       position: relative;
       top: 1px;
     }
   }
-  .th-openbox{
+  .th-openbox {
     height: 170px;
     width: 100%;
     position: absolute;

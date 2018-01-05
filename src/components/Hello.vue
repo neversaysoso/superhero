@@ -10,6 +10,7 @@
       :btnType="doctorbar.btntype"
       :btnCanClick="doctorbar.btncanlick"
       :headImg="otherface"
+      :clock="`48小时后截止`"
       @btnCall="topbtncall"
       @headClick="headclick">
       自定义内容
