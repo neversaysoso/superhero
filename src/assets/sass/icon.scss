@@ -20,6 +20,15 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-close:before {
+  content: "\e900";
+}
+
+.icon-top:before {
+  content: "\e901";
+  color: #515151;
+}
+
 .icon-add:before {
   content: "\e94b";
   color: #666;
