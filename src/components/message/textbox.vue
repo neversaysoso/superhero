@@ -1,6 +1,6 @@
 <template>
   <div class="textbox">
-    <textarea v-model="inputmodel"></textarea>
+    <textarea v-model="inputmodel" @focus="textFocus" @blur="textBlur"></textarea>
     <div class="btnbox">
       <x-button 
         class="textbtn"
@@ -28,6 +28,12 @@ export default {
         this.$emit("sendText", this.inputmodel);
         this.inputmodel = "";
       }
+    },
+    textFocus() {
+      this.$emit("textFocus");
+    },
+    textBlur() {
+      this.$emit("textBlur");
     }
   }
 };

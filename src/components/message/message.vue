@@ -47,13 +47,13 @@
         </div>
         <div v-show="textShow">
           <div class="usetexttitle">输入文字</div>
-          <span class="usetexthidebox" @click="hideBox">取消</span>
+          <span v-show="!textfocus" class="usetexthidebox" @click="hideBox">取消</span>
         </div>
       </template>
     </div>
     <facebox v-show="faceShow" ref="facebox" :facelist="facelist" @itemClick="faceItemClick"></facebox>
     <funcbox v-show="funcShow" :funclist="funclist"></funcbox>
-    <textbox v-show="textShow" @sendText="sendText"></textbox>
+    <textbox v-show="textShow" @sendText="sendText" @textFocus="textFocus" @textBlur="textBlur"></textbox>
   </div>
 </template>
 
@@ -162,6 +162,7 @@ export default {
       funcShow: false,
       isFocus: false,
       textShow: false,
+      textfocus: false,
       status: {
         pulldownStatus: "default"
       },
@@ -352,6 +353,12 @@ export default {
     },
     resetpulldown() {
       this.status.pulldownStatus = "default";
+    },
+    textFocus() {
+      this.textfocus = true;
+    },
+    textBlur() {
+      this.textfocus = false;
     }
   }
 };
