@@ -1,17 +1,17 @@
-.th-message{
+.th-message {
   position: relative;
   .messagebox {
     width: 100%;
     background: #f6f8fc;
     padding: 20px;
-    .th-pulldown{
+    .th-pulldown {
       text-align: center;
       width: 100%;
       line-height: 60px;
       height: 60px;
       color: #888;
     }
-    .pbtn{
+    .pbtn {
       margin-top: 50px;
       height: 50px;
     }
@@ -29,14 +29,14 @@
         border-radius: 50%;
         display: block;
       }
-      &.isimg{
-        .mtext{
+      &.isimg {
+        .mtext {
           background: none!important;
           padding: 0px;
-          &:before{
+          &:before {
             display: none;
           }
-          img{
+          img {
             margin: 0px;
             display: block;
             border-radius: 8px;
@@ -57,11 +57,11 @@
           margin-top: -12px;
         }
       }
-      &.default-item{
-        .headimg{
+      &.default-item {
+        .headimg {
           display: none;
         }
-        .mtext{
+        .mtext {
           padding: 10px 15px;
           font-size: 14px;
           border-radius: 10px;
@@ -71,11 +71,11 @@
           line-height: 25px;
         }
       }
-      &.msg-item{
-        .headimg{
+      &.msg-item {
+        .headimg {
           display: none;
         }
-        .mtext{
+        .mtext {
           padding: 10px 15px;
           background: #fff;
           font-size: 14px;
@@ -99,8 +99,7 @@
           background: #4a93ec;
           &:before {
             content: "";
-            background: url("../../images/peopleBubble.png") top right
-              no-repeat;
+            background: url("../../images/peopleBubble.png") top right no-repeat;
             position: absolute;
             width: 10px;
             right: -10px;
@@ -134,6 +133,48 @@
     padding: 10px 80px 10px 45px;
     border: #dfdfdf solid 1px;
     position: relative;
+    .usetexttitle {
+      font-size: 16px;
+      height: 38px;
+      line-height: 38px;
+      text-align: center;
+      margin-right: -35px;
+    }
+    .usetexthidebox {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 14px;
+      color: #666666;
+      &:active {
+        color: #4a93ec
+      }
+    }
+    .usetext {
+      margin-left: -35px;
+      height: 38px;
+      &.hide-emoticon {
+        margin-right: -35px;
+        .icon-add {
+          right: 10px;
+        }
+      }
+      .textbtn {
+        height: 38px;
+        line-height: 38px;
+        color: #888;
+        font-size: 16px;
+      }
+      .icon-add {
+        left: auto;
+        right: 42px;
+      }
+      .icon-face {
+        right: 10px;
+        font-size: 27px;
+      }
+    }
     .icon-add {
       position: absolute;
       left: 10px;
@@ -173,35 +214,60 @@
       font-size: 14px;
     }
   }
-  .facebox{
+  .textbox {
+    padding: 0px;
+    height: 175px;
+    .btnbox {
+      padding: 10px;
+      .textbtn {
+        height: 40px;
+        line-height: 40px;
+      }
+    }
+    textarea {
+      box-sizing: border-box;
+      resize: none;
+      box-shadow: none;
+      border: none;
+      width: 100%;
+      height: 108px;
+      border-radius: 5px;
+      outline: none;
+      padding: 12px 15px;
+      font-size: 16px;
+      line-height: 20px;
+      margin: 0px;
+    }
+  }
+  .facebox {
     display: flex;
     padding: 10px;
     -webkit-flex-wrap: wrap;
     flex-wrap: wrap;
     justify-content: space-between;
     width: 100%;
-    .faceitem{
+    .faceitem {
       display: block;
       margin: 5px;
     }
-    .vux-emotion{
+    .vux-emotion {
       width: 24px;
       height: 24px;
     }
   }
-  .funcbox{
+  .funcbox {
     height: 175px;
     background: #FAFAFA;
     padding: 15px;
     width: 100%;
     overflow: hidden;
-    .funcimg{
+    .funcimg {
       display: block;
       margin: 0px auto;
       width: 42px;
       margin-bottom: 5px;
     }
-    .funclist{
+    .funclist {
       width: 25%;
       text-align: center;
       float: left;

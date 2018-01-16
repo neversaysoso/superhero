@@ -18,6 +18,7 @@
     </th-doctortitlebar>
     <th-message 
       ref="messgebox"
+      :useText="true"
       :usePulldown="true"
       :pulldownConfig="pulldownconfig"
       :topPadding="120"
@@ -27,6 +28,7 @@
       :showInput="showinput"
       :selfFace="selfface" 
       :otherFace="otherface"
+      :showEmoticon="true"
       @sendOut="senRequest"
       @galleryCall="gallery"
       @cameraCall="camera"

@@ -32,6 +32,7 @@ Vue.use(thor)
 ```html
 <th-message 
   ref="messgebox"
+  :useText="true"
   :usePulldown="true"
   :pulldownConfig="pulldownconfig"
   :topPadding="120"
@@ -41,6 +42,7 @@ Vue.use(thor)
   :showInput="showinput"
   :selfFace="selfface" 
   :otherFace="otherface"
+  :showEmoticon="true"
   @sendOut="senRequest"
   @galleryCall="gallery"
   @cameraCall="camera"
@@ -58,6 +60,7 @@ Vue.use(thor)
 
 |Prop|Required|Default Value|Description|
 |:-|:-|:-|:-|
+|`useText`|`false`|`false`|控制是否开启`textarea`输入提交模式|
 |`topPadding`|`false`|`0`|顶部间距。若顶部有其他功能块，可以设置顶部间距，数值为该功能块高度，只支持正整数.|
 |`messageData`|`true`|`{type:type,text:text,isimg:isimg}`|聊天记录。type: 4种形式 type=1 右侧泡泡 type=2 左侧泡泡 type=3 消息提示 type=4 系统消息;text: html信息（支持html标签）;isimg: 是否为图片信息 true/false，默认false.|
 |`funcList`|`true`||功能列表。数组形式 可传["gallery","camera", "quick"]，传几个显示几个|
@@ -67,6 +70,7 @@ Vue.use(thor)
 |`otherFace`|`false`|`url`|接收方的头像，默认显示默认图|
 |`usePulldown`|`false`|`false`|配置是否开启下拉刷新功能|
 |`pulldownConfig`|`false`|`{default: html,up: html,down: html,loading: html}`|下拉刷新配置。可配置4个参数：default/up/down/loading，支持传入html|
+|`showEmoticon`|`true`|`false`|配置是否使用表情包|
 
 #### Events
 
@@ -101,6 +105,7 @@ Vue.use(thor)
   :btnCanClick="doctorbar.btncanlick"
   :headImg="otherface"
   :clock="`48小时后截止`"
+  :isopen="true"
   @btnCall="topbtncall"
   @headClick="headclick">
   自定义内容
@@ -122,6 +127,7 @@ Vue.use(thor)
 |`btnCanClick`|`false`|`true`|按钮是否能点击，默认可以点击|
 |`headImg`|`false`|`url`|头像图片，默认显示默认图|
 |`clock`|`false`||时钟字段，内容自定义|
+|`isopen`|`false`||控制展开收起面板默认打开或关闭|
 
 #### Events
 

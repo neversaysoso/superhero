@@ -39,22 +39,46 @@ export default {
     Scroller,
     XButton
   },
-  props: [
-    "name",
-    "position",
-    "star",
-    "btn",
-    "canopen",
-    "btnCanClick",
-    "btnType",
-    "headImg",
-    "openConfig",
-    "clock"
-  ],
+  props: {
+    name: {
+      type: String
+    },
+    position: {
+      type: String
+    },
+    star: {
+      type: Number
+    },
+    btn: {
+      type: String
+    },
+    canopen: {
+      type: String
+    },
+    btnCanClick: {
+      type: Boolean
+    },
+    btnType: {
+      type: String
+    },
+    headImg: {
+      type: String
+    },
+    openConfig: {
+      type: Object
+    },
+    clock: {
+      type: String
+    },
+    isopen: {
+      type: Boolean,
+      default: false
+    }
+  },
   data() {
     return {
       doc: doc,
-      open: false,
+      open: this.isopen,
       opentext: {
         open: "展开",
         close: "收起"

@@ -3,10 +3,10 @@
     <scroller class="messagebox" lock-x v-model="status" :height="bottomheight" :use-pulldown="usePulldown" ref="scrollerEvent" @click.native="hideBox" @on-pulldown-loading="pulldown" @on-scroll="onscroll">
       <div ref="scrollbox" :style="{paddingTop:`${topPadding}px`}">
         <div class="message-item" :class="{'people-item':i.type==1,'doc-item':i.type==2,'msg-item':i.type==3,'default-item':i.type==4,'isimg':i.isimg}" v-for="i in messageData">
-          <img class="headimg" :src="i.headImg||i.type==1?selfFace||people:otherFace||doc" @click="e=>{faceclick(i,e)}">
-          <div class="mtext" v-html="i.text" @click="e=>{msgclick(i,e)}"></div>
+          <img class="headimg" :src="i.headImg||i.type==1?selfFace||people:otherFace||doc" @click.stop="faceclick(i)">
+          <div class="mtext" v-html="i.text" @click.stop="msgclick(i)"></div>
         </div>
-        <x-button v-if="typeof bigBtn=='string'&&bigBtn!=''" class="pbtn" type="primary" @click.native="btnCall">{{bigBtn}}</x-button>
+        <x-button v-if="bigBtn!=''" class="pbtn" type="primary" @click.native="btnCall">{{bigBtn}}</x-button>
       </div>
       <div v-if="usePulldown" slot="pulldown" class="th-pulldown" style="position: absolute; top:100px;" :style="{top:`${parseInt(topPadding||0)-60}px`}">
         <span v-show="status.pulldownStatus === 'default'" v-html="`${pulldownConfig.default||'下拉刷新'}`"></span>
@@ -16,13 +16,44 @@
       </div>
     </scroller>
     <div ref="thMessageInput" class="inputbox" v-if="showInput!=false">
-      <i class="icon-add" @click="openfunc"></i>
-      <i class="icon-face" @click="openface"></i>
-      <input ref="thMessageInputF" class="messageinput" v-model="inputmodel" type="text" @focus="onfocus" @blur="onblur"/>
-      <x-button class="sendbtn" :type="inputmodel.trim()==''?'default':'primary'" :disabled="inputmodel.trim()==''" @click.native="changecount">发送</x-button>
+      <template v-if="!useText">
+        <i class="icon-add" @click="openfunc"></i>
+        <i v-if="showEmoticon" class="icon-face" @click="openface"></i>
+        <input 
+          ref="thMessageInputF" 
+          class="messageinput" 
+          v-model="inputmodel" 
+          type="text" 
+          @focus="onfocus" 
+          @blur="onblur"/>
+        <x-button 
+          class="sendbtn" 
+          :type="inputmodel.trim()==''?'default':'primary'" 
+          :disabled="inputmodel.trim()==''" 
+          @click.native="changecount">
+          发送
+        </x-button>
+      </template>
+      <template v-if="useText">
+        <div v-show="!textShow" class="usetext" :class="{'hide-emoticon':!showEmoticon}">
+          <x-button 
+            class="textbtn"
+            type="default"  
+            @click.native="showText">
+            点击输入文字
+          </x-button>
+          <i class="icon-add" @click="openfunc"></i>
+          <i v-if="showEmoticon" class="icon-face" @click="openface"></i>
+        </div>
+        <div v-show="textShow">
+          <div class="usetexttitle">输入文字</div>
+          <span class="usetexthidebox" @click="hideBox">取消</span>
+        </div>
+      </template>
     </div>
     <facebox v-show="faceShow" ref="facebox" :facelist="facelist" @itemClick="faceItemClick"></facebox>
     <funcbox v-show="funcShow" :funclist="funclist"></funcbox>
+    <textbox v-show="textShow" @sendText="sendText"></textbox>
   </div>
 </template>
 
@@ -39,25 +70,54 @@ import { facelist } from "@/assets/testdata.js";
 
 import facebox from "./facebox.vue";
 import funcbox from "./funcbox.vue";
+import textbox from "./textbox.vue";
 
 export default {
   name: "ThMessage",
-  props: [
-    "topPadding",
-    "messageData",
-    "funcList",
-    "bigBtn",
-    "showInput",
-    "selfFace",
-    "otherFace",
-    "usePulldown",
-    "pulldownConfig"
-  ],
+  props: {
+    useText: {
+      type: Boolean,
+      default: false
+    },
+    topPadding: {
+      type: Number
+    },
+    messageData: {
+      type: Array
+    },
+    funcList: {
+      type: Array
+    },
+    bigBtn: {
+      type: String,
+      default: ""
+    },
+    showInput: {
+      type: Boolean
+    },
+    selfFace: {
+      type: String
+    },
+    otherFace: {
+      type: String
+    },
+    usePulldown: {
+      type: Boolean
+    },
+    pulldownConfig: {
+      type: Object
+    },
+    showEmoticon: {
+      type: Boolean,
+      default: true
+    }
+  },
   components: {
     Scroller,
     XButton,
     facebox,
-    funcbox
+    funcbox,
+    textbox
   },
   watch: {
     messageData: function() {
@@ -101,6 +161,7 @@ export default {
       facelist: facelist,
       funcShow: false,
       isFocus: false,
+      textShow: false,
       status: {
         pulldownStatus: "default"
       },
@@ -183,8 +244,8 @@ export default {
       setTimeout(() => {
         // input.UpdateLayout()
         const ua = navigator.userAgent,
-          iOS11 = /OS 11_0_1|OS 11_0_2|OS 11_0_3|OS 11_1/.test(ua),
-          micro = /MicroMessenger\/6.5.2/.test(ua),
+          iOS11 = /OS 11_/.test(ua),
+          micro = /MicroMessenger/.test(ua),
           safari = /Safari/.test(ua),
           wxwork = /wxwork/.test(ua);
         if (iOS11 && (micro || safari) && !wxwork) {
@@ -207,7 +268,10 @@ export default {
       }
     },
     messageReset() {
-      let mh = this.faceShow || this.funcShow ? 275 : this.defaultresize;
+      let mh =
+        this.faceShow || this.funcShow || this.textShow
+          ? 275
+          : this.defaultresize;
       this.bottomheight = `-${mh - 40}`;
       if (this.$refs.scrollbox.clientHeight > this.screamHeight - mh) {
         this.$refs.scrollerEvent.reset({
@@ -225,12 +289,10 @@ export default {
         });
       }
     },
-    faceclick(d, e) {
-      e.stopPropagation();
+    faceclick(d) {
       this.$emit("faceClick", d);
     },
-    msgclick(d, e) {
-      e.stopPropagation();
+    msgclick(d) {
       this.$emit("msgClick", d);
     },
     btnCall() {
@@ -253,6 +315,9 @@ export default {
     },
     faceItemClick(i) {
       this.inputmodel += `[${i}]`;
+      if (this.useText) {
+        this.changecount();
+      }
     },
     openfunc() {
       this.faceShow = false;
@@ -266,9 +331,20 @@ export default {
         }, 300);
       }
     },
+    showText() {
+      this.faceShow = false;
+      this.funcShow = false;
+      this.textShow = true;
+      this.messageReset();
+    },
+    sendText(value) {
+      this.inputmodel = value;
+      this.changecount();
+    },
     hideBox() {
       this.funcShow = false;
       this.faceShow = false;
+      this.textShow = false;
       this.messageReset();
     },
     pulldown() {
