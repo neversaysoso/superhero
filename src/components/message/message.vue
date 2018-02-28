@@ -1,6 +1,6 @@
 <template>
   <div class="th-message" :style="{marginTop:`-${topPadding}px`}">
-    <scroller class="messagebox" lock-x v-model="status" :height="bottomheight" :use-pulldown="usePulldown" ref="scrollerEvent" @click.native="hideBox" @on-pulldown-loading="pulldown" @on-scroll="onscroll">
+    <scroller class="messagebox" ref="scrollerEvent" lock-x v-model="status" :height="bottomheight" :use-pulldown="usePulldown" @on-pulldown-loading="pulldown" @on-scroll="onscroll">
       <div ref="scrollbox" :style="{paddingTop:`${topPadding}px`}">
         <div class="message-item" :class="{'people-item':i.type==1,'doc-item':i.type==2,'msg-item':i.type==3,'default-item':i.type==4,'isimg':i.isimg}" v-for="i in messageData">
           <img class="headimg" :src="i.headImg||i.type==1?selfFace||people:otherFace||doc" @click.stop="faceclick(i)">
@@ -17,43 +17,30 @@
     </scroller>
     <div ref="thMessageInput" class="inputbox" v-if="showInput!=false">
       <template v-if="!useText">
-        <i class="icon-add" @click="openfunc"></i>
-        <i v-if="showEmoticon" class="icon-face" @click="openface"></i>
-        <input 
-          ref="thMessageInputF" 
-          class="messageinput" 
-          v-model="inputmodel" 
-          type="text" 
-          @focus="onfocus" 
-          @blur="onblur"/>
-        <x-button 
-          class="sendbtn" 
-          :type="inputmodel.trim()==''?'default':'primary'" 
-          :disabled="inputmodel.trim()==''" 
-          @click.native="changecount">
+        <i class="icon-add" :class="{isopen:funcShow}" @click="openfunc"></i>
+        <i v-if="showEmoticon" class="icon-face" :class="{isopen:faceShow}" @click="openface"></i>
+        <input ref="thMessageInputF" class="messageinput" v-model="inputmodel" type="text" @focus="onfocus" @blur="onblur" />
+        <x-button class="sendbtn" :type="inputmodel.trim()==''?'default':'primary'" :disabled="inputmodel.trim()==''" @click.native="changecount">
           发送
         </x-button>
       </template>
       <template v-if="useText">
         <div v-show="!textShow" class="usetext" :class="{'hide-emoticon':!showEmoticon}">
-          <x-button 
-            class="textbtn"
-            type="default"  
-            @click.native="showText">
+          <x-button class="textbtn" type="default" @click.native="showText">
             点击输入文字
           </x-button>
-          <i class="icon-add" @click="openfunc"></i>
-          <i v-if="showEmoticon" class="icon-face" @click="openface"></i>
+          <i class="icon-add" :class="{isopen:funcShow}" @click="openfunc"></i>
+          <i v-if="showEmoticon" class="icon-face" :class="{isopen:faceShow}" @click="openface"></i>
         </div>
-        <div v-show="textShow">
-          <div class="usetexttitle">输入文字</div>
+        <div v-show="textShow" class="usetexttitle">
+          <span>输入文字</span>
           <span v-show="!textfocus" class="usetexthidebox" @click="hideBox">取消</span>
         </div>
       </template>
     </div>
     <facebox v-show="faceShow" ref="facebox" :facelist="facelist" @itemClick="faceItemClick"></facebox>
     <funcbox v-show="funcShow" :funclist="funclist"></funcbox>
-    <textbox v-show="textShow" @sendText="sendText" @textFocus="textFocus" @textBlur="textBlur"></textbox>
+    <textbox v-show="textShow" ref="textbox" @sendText="sendText" @textFocus="textFocus" @textBlur="textBlur"></textbox>
   </div>
 </template>
 
@@ -110,6 +97,10 @@ export default {
     showEmoticon: {
       type: Boolean,
       default: true
+    },
+    fromTop: {
+      type: Boolean,
+      default: false
     }
   },
   components: {
@@ -120,7 +111,12 @@ export default {
     textbox
   },
   watch: {
-    messageData: function() {
+    textfocus (e) {
+      if (e) {
+        this.canclose = false;
+      }
+    },
+    messageData () {
       this.$nextTick(() => {
         if (
           this.status.pulldownStatus == "default" ||
@@ -132,7 +128,7 @@ export default {
         }
       });
     },
-    showInput: function(e) {
+    showInput (e) {
       if (!e) {
         this.defaultresize = 40;
         this.$nextTick(() => {
@@ -140,13 +136,13 @@ export default {
         });
       }
     },
-    funcList: function() {
+    funcList () {
       this.funclist = this.funclist.filter(e => {
         return this.funcList.indexOf(e.type) != -1;
       });
     }
   },
-  data() {
+  data () {
     return {
       bottomheight: "-60",
       defaultresize: 100,
@@ -154,6 +150,7 @@ export default {
       scrollTop: 0,
       screamHeight: 0,
       count: 20,
+      top: 0,
       inputmodel: "",
       doc: doc,
       people: people,
@@ -163,6 +160,7 @@ export default {
       isFocus: false,
       textShow: false,
       textfocus: false,
+      canclose: true,
       status: {
         pulldownStatus: "default"
       },
@@ -197,7 +195,7 @@ export default {
       ]
     };
   },
-  mounted() {
+  mounted () {
     if (this.showInput == false) {
       this.defaultresize = 40;
     }
@@ -222,24 +220,33 @@ export default {
       const imgs = document.querySelectorAll(".mtext>img");
       if (imgs.length == 0) {
         this.messageReset();
+        if (this.fromTop)
+          this.scrollToTop()
       } else {
         imgs.forEach(e => {
           e.addEventListener(
             "load",
             () => {
-              this.messageReset();
+              this.messageReset()
+              if (this.fromTop)
+                this.scrollToTop()
             },
             false
           );
         });
       }
       setTimeout(() => {
-        this.messageReset();
+        this.messageReset()
+        if (this.fromTop)
+          this.scrollToTop()
       }, 1000);
     });
   },
   methods: {
-    onfocus() {
+    scrollToTop () {
+      this.$refs.scrollerEvent.reset({ top: 0 })
+    },
+    onfocus () {
       this.hideBox();
       const input = this.$refs.thMessageInput;
       setTimeout(() => {
@@ -259,16 +266,16 @@ export default {
         }, 300);
       }, 300);
     },
-    onblur() {
+    onblur () {
       this.isFocus = false;
     },
-    onscroll() {
+    onscroll (p) {
       if (this.isFocus) {
         this.$refs.thMessageInputF.blur();
         this.hideBox();
       }
     },
-    messageReset() {
+    messageReset () {
       let mh =
         this.faceShow || this.funcShow || this.textShow
           ? 275
@@ -280,7 +287,7 @@ export default {
         });
       }
     },
-    changecount() {
+    changecount () {
       if (this.inputmodel.trim() != "") {
         let html = this.inputmodel;
         this.$nextTick(() => {
@@ -290,16 +297,16 @@ export default {
         });
       }
     },
-    faceclick(d) {
+    faceclick (d) {
       this.$emit("faceClick", d);
     },
-    msgclick(d) {
+    msgclick (d) {
       this.$emit("msgClick", d);
     },
-    btnCall() {
+    btnCall () {
       this.$emit("bigBtnCall");
     },
-    openface() {
+    openface () {
       this.funcShow = false;
       if (this.faceShow) {
         this.faceShow = false;
@@ -314,13 +321,13 @@ export default {
         }, 300);
       }
     },
-    faceItemClick(i) {
+    faceItemClick (i) {
       this.inputmodel += `[${i}]`;
       if (this.useText) {
         this.changecount();
       }
     },
-    openfunc() {
+    openfunc () {
       this.faceShow = false;
       if (this.funcShow) {
         this.funcShow = false;
@@ -332,32 +339,33 @@ export default {
         }, 300);
       }
     },
-    showText() {
+    showText () {
       this.faceShow = false;
       this.funcShow = false;
       this.textShow = true;
       this.messageReset();
     },
-    sendText(value) {
+    sendText (value) {
       this.inputmodel = value;
       this.changecount();
     },
-    hideBox() {
+    hideBox () {
       this.funcShow = false;
       this.faceShow = false;
       this.textShow = false;
       this.messageReset();
     },
-    pulldown() {
+    pulldown () {
       this.$emit("pulldownCall");
     },
-    resetpulldown() {
+    resetpulldown () {
       this.status.pulldownStatus = "default";
     },
-    textFocus() {
+    textFocus () {
+      this.messageReset();
       this.textfocus = true;
     },
-    textBlur() {
+    textBlur () {
       this.textfocus = false;
     }
   }

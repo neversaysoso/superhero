@@ -1,3 +1,19 @@
+@mixin translate {
+  transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  -moz-transform: translateY(-50%);
+  -webkit-transform: translateY(-50%);
+  -o-transform: translateY(-50%);
+}
+
+@mixin rotate($deg:0) {
+  transform: rotate($deg);
+  -ms-transform: rotate($deg);
+  -moz-transform: rotate($deg);
+  -webkit-transform: rotate($deg);
+  -o-transform: rotate($deg);
+}
+
 .th-message {
   position: relative;
   .messagebox {
@@ -39,7 +55,6 @@
           img {
             margin: 0px;
             display: block;
-            border-radius: 8px;
             max-width: 150px;
             max-height: 150px;
           }
@@ -144,9 +159,9 @@
       position: absolute;
       right: 10px;
       top: 50%;
-      transform: translateY(-50%);
       font-size: 14px;
       color: #666666;
+      @include translate;
       &:active {
         color: #4a93ec
       }
@@ -179,7 +194,7 @@
       position: absolute;
       left: 10px;
       top: 50%;
-      transform: translateY(-50%);
+      @include translate;
       font-size: 25px;
       color: #666666;
     }
@@ -187,10 +202,16 @@
       position: absolute;
       right: 90px;
       top: 50%;
-      transform: translateY(-50%);
+      @include translate;
       font-size: 25px;
       color: #666666;
       z-index: 1;
+    }
+    [class^=icon-].isopen:before {
+      color: #4a93ec;
+      content: "\E94B";
+      display: inline-block;
+      @include rotate(45deg);
     }
     .messageinput {
       height: 40px;

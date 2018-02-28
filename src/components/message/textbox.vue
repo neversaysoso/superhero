@@ -1,12 +1,9 @@
 <template>
   <div class="textbox">
-    <textarea v-model="inputmodel" @focus="textFocus" @blur="textBlur"></textarea>
+    <textarea ref="mytextarea" v-model="inputmodel" @focus="textFocus" @blur="textBlur"></textarea>
     <div class="btnbox">
-      <x-button 
-        class="textbtn"
-        type="primary"  
-        @click.native="changecount">
-        完成
+      <x-button class="textbtn" type="primary" @click.native="changecount">
+        发送
       </x-button>
     </div>
   </div>
@@ -34,6 +31,11 @@ export default {
     },
     textBlur() {
       this.$emit("textBlur");
+    },
+    getFocus() {
+      // setTimeout(() => {
+      //   this.$refs.mytextarea.focus();
+      // }, 1000);
     }
   }
 };

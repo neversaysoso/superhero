@@ -71,6 +71,7 @@ Vue.use(thor)
 |`usePulldown`|`false`|`false`|配置是否开启下拉刷新功能|
 |`pulldownConfig`|`false`|`{default: html,up: html,down: html,loading: html}`|下拉刷新配置。可配置4个参数：default/up/down/loading，支持传入html|
 |`showEmoticon`|`true`|`false`|配置是否使用表情包|
+|`fromTop`|`false`|`false`|配置初始置顶|
 
 #### Events
 
@@ -91,6 +92,7 @@ Vue.use(thor)
 |:-|:-|:-|
 |`resetpulldown`|`false`|下拉刷新完成后重置状态|
 |`messageReset`|`false`|手动刷新聊天容器（传输图片时使用）|
+|`scrollToTop`|`false`|手动置顶|
 
 ## 人物信息组件 th-doctortitlebar
 

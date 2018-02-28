@@ -61,6 +61,9 @@ export const messageData = [{
   type: 1,
   text: '<img src="http://img4.imgtn.bdimg.com/it/u=3088474657,3195539965&fm=11&gp=0.jpg">',
   isimg: true
+}, {
+  type: 1,
+  text: '你好，有什么事？你好，有什么事？你好，有什么事？你好，有什么事？你好，有什么事？你好，有什么事？你好，有什么事？你好，有什么事？你好，有什么事？你好，有什么事？'
 }]
 export const facelist = [
   "微笑",
