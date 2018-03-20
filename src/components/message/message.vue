@@ -15,7 +15,7 @@
         <span v-show="status.pulldownStatus === 'loading'" v-html="`${pulldownConfig.loading||'加载中...'}`"></span>
       </div>
     </scroller>
-    <div ref="thMessageInput" class="inputbox" v-if="showInput!=false">
+    <div ref="thMessageInput" class="inputbox" :class="{'textShow':textShow}" v-if="showInput!=false">
       <template v-if="!useText">
         <i class="icon-add" :class="{isopen:funcShow}" @click="openfunc"></i>
         <i v-if="showEmoticon" class="icon-face" :class="{isopen:faceShow}" @click="openface"></i>
@@ -33,7 +33,7 @@
           <i v-if="showEmoticon" class="icon-face" :class="{isopen:faceShow}" @click="openface"></i>
         </div>
         <div v-show="textShow" class="usetexttitle">
-          <span>输入文字</span>
+          <span>{{textTitle}}</span>
           <span v-show="!textfocus" class="usetexthidebox" @click="hideBox">取消</span>
         </div>
       </template>
@@ -101,6 +101,10 @@ export default {
     fromTop: {
       type: Boolean,
       default: false
+    },
+    textTitle: {
+      type: String,
+      default: '输入文字'
     }
   },
   components: {

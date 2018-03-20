@@ -72,6 +72,7 @@ Vue.use(thor)
 |`pulldownConfig`|`false`|`{default: html,up: html,down: html,loading: html}`|下拉刷新配置。可配置4个参数：default/up/down/loading，支持传入html|
 |`showEmoticon`|`true`|`false`|配置是否使用表情包|
 |`fromTop`|`false`|`false`|配置初始置顶|
+|`textTitle`|`false`|`false`|text模式时标题显示字段|
 
 #### Events
 

@@ -1,45 +1,12 @@
 <template>
   <div>
-    <th-doctortitlebar
-      canopen
-      :openConfig="openconfig"
-      :name="doctorbar.name"
-      :position="doctorbar.position"
-      :star="doctorbar.star"
-      :btn="doctorbar.btn"
-      :btnType="doctorbar.btntype"
-      :btnCanClick="doctorbar.btncanlick"
-      :headImg="otherface"
-      @btnCall="topbtncall"
-      @headClick="headclick">
+    <th-doctortitlebar canopen :openConfig="openconfig" :name="doctorbar.name" :position="doctorbar.position" :star="doctorbar.star" :btn="doctorbar.btn" :btnType="doctorbar.btntype" :btnCanClick="doctorbar.btncanlick" :headImg="otherface" @btnCall="topbtncall" @headClick="headclick">
       自定义内容
       <div v-for="i in count">{{i}}</div>
     </th-doctortitlebar>
-    <th-message 
-      ref="messgebox"
-      :usePulldown="true"
-      :pulldownConfig="pulldownconfig"
-      :topPadding="120"
-      :messageData="messageData" 
-      :funcList="funclist" 
-      :bigBtn="bigbtn"
-      :showInput="showinput"
-      :selfFace="selfface" 
-      :otherFace="otherface"
-      @sendOut="senRequest"
-      @galleryCall="gallery"
-      @cameraCall="camera"
-      @quickCall="quick"
-      @bigBtnCall="btncall"
-      @faceClick="faceclick"
-      @msgClick="msgclick"
-      @pulldownCall="pulldowncall">
+    <th-message ref="messgebox" :usePulldown="true" :pulldownConfig="pulldownconfig" :topPadding="120" :messageData="messageData" :funcList="funclist" :bigBtn="bigbtn" :selfFace="selfface" :otherFace="otherface" @sendOut="senRequest" @galleryCall="gallery" @cameraCall="camera" @quickCall="quick" @bigBtnCall="btncall" @faceClick="faceclick" @msgClick="msgclick" @pulldownCall="pulldowncall">
     </th-message>
-    <th-dialog 
-      :isShow.sync="showdialog" 
-      :showFrom="dialogfrom" 
-      :closeOnClickshadow="true" 
-      @onHide="hidedialog">
+    <th-dialog :isShow.sync="showdialog" :showFrom="dialogfrom" :closeOnClickshadow="true" @onHide="hidedialog">
     </th-dialog>
   </div>
 </template>
@@ -60,7 +27,7 @@ export default {
     ThDoctortitlebar,
     ThDialog
   },
-  data() {
+  data () {
     return {
       messageData: messageData,
       bigbtn: "",
@@ -92,45 +59,45 @@ export default {
       }
     };
   },
-  mounted() {
+  mounted () {
     setTimeout(() => {
       this.$refs.messgebox.messageReset();
     }, 5000);
   },
   methods: {
-    replaceImg(word) {
+    replaceImg (word) {
       return word.replace(/\[[\u4E00-\u9FA5]{1,3}\]/gi, word => {
         let newWord = word.replace(/\[|\]/gi, "");
         let index = this.facelist.indexOf(newWord);
         return `<img src="https://res.wx.qq.com/mpres/htmledition/images/icon/emotion/${index}.gif" align="middle">`;
       });
     },
-    senRequest(h) {
+    senRequest (h) {
       this.messageData.push({
         type: 1,
         text: this.replaceImg(h)
       });
       console.log(h);
     },
-    gallery() {
+    gallery () {
       console.warn("调起了自定义组件");
       this.messageData.push({
         type: 3,
         text: "调起了自定义相册组件"
       });
     },
-    camera() {
+    camera () {
       this.messageData.push({
         type: 3,
         text: "调起了自定义拍照组件"
       });
     },
-    btncall() {
+    btncall () {
       alert("前往评价了");
       this.doctorbar.btn = "已评价";
       this.doctorbar.btntype = "default";
     },
-    topbtncall() {
+    topbtncall () {
       this.messageData.push({
         type: 4,
         text: "您已完成咨询，请前往评价"
@@ -139,22 +106,22 @@ export default {
       this.showinput = false;
       this.doctorbar.btncanlick = false;
     },
-    quick() {
+    quick () {
       this.showdialog = true;
     },
-    hidedialog() {
+    hidedialog () {
       this.showdialog = false;
     },
-    faceclick(d) {
+    faceclick (d) {
       console.log(d);
     },
-    msgclick(d) {
+    msgclick (d) {
       if (d.isimg) alert(d.text);
     },
-    headclick() {
+    headclick () {
       console.log("点击了头像");
     },
-    pulldowncall() {
+    pulldowncall () {
       console.log("pulldown");
       this.messageData.unshift({
         type: 1,
