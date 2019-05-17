@@ -34,7 +34,7 @@ export default {
       showinput: true,
       funclist: ["gallery", "camera", "quick"],
       doctorbar: {
-        name: "李成才",
+        name: "李成",
         position: "主治医师",
         star: 5,
         btn: "结束咨询",
